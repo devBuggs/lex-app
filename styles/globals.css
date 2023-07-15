@@ -105,3 +105,18 @@ a {
     color-scheme: dark;
   }
 }
+
+
+
+
+/* context menu style */
+.context {
+  width: 200px;
+  height: auto;
+  background-color: white;
+  display: block;
+  position: absolute;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px #343434;
+  z-index: 9;
+}

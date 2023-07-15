@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "label": "Delete",
+        "icon": "fa-solid fa-trash"
+    },
+    {
+        "id": 2,
+        "label": "Rename",
+        "icon": "fa-solid fa-pen-to-square"
+    },
+    {
+        "id": 3,
+        "label": "Add to Favorites",
+        "icon": "fa-solid fa-star"
+    },
+    {
+        "id": 4,
+        "label": "Duplicate",
+        "icon": "fa-solid fa-clone"
+    },
+    {
+        "id": 5,
+        "label": "Copy link",
+        "icon": "fa-solid fa-link"
+    }
+]
