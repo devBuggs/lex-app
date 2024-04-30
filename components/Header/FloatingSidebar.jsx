@@ -1,9 +1,6 @@
-
-
+'use client';
 
 const FloatingSidebar = () => {
-
-
 
 
     return (

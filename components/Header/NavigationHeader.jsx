@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 
 const NavigationHeader = ({sidebarState, setSidebarState}) => {
@@ -61,12 +62,12 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                 </div>
             </div>
 
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="id-sidebar" data-bs-backdrop="false" aria-labelledby="offcanvasExampleLabel" style={{ top:100+'px' }}>
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Floating Sidebar </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div className="offcanvas offcanvas-start" tabindex="-1" id="id-sidebar" data-bs-backdrop="false" aria-labelledby="offcanvasExampleLabel" style={{ top:100+'px' }}>
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="offcanvasExampleLabel">Floating Sidebar </h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div className="offcanvas-body">
                     <div>
                         Hello, Zestgeek
                     </div>

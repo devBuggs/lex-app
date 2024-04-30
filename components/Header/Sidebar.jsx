@@ -1,4 +1,5 @@
-import Button from '../Button'
+'use client';
+import Button from '../Button';
 
 const Sidebar = ({ options }) => {
 
@@ -6,7 +7,7 @@ const Sidebar = ({ options }) => {
         <div className={ 'flex-1 bg-body-secondary' } style={{ width: 15+'%' }}>
             <br /><br /><br />
             <span className={'text-secondary ms-3'}>Pages</span>
-            <div class="list-group">
+            <div className="list-group">
                 {
                     options.map((elm, index) => <Button obj={elm} key={`id-child-obj-${index}`} />)
                 }
