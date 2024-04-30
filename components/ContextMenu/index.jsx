@@ -65,7 +65,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 						ref={contextRef}
 						style={{ top, left }}
 					>
-						<ul >
+						<ul style={{ listStyle: "none", paddingLeft: "10px" }} >
 							{
 								buttons.length > 0 &&
 								buttons.map((button) => {
