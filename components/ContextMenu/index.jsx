@@ -10,7 +10,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 	
 	const divRef = React.useRef(null);
 	const contextRef = React.useRef(null);
-    const warehouseStore = useSelector((state) => state.warehouse.value);
+    const warehouseStore = useSelector((state) => state.warehouse);
     const dispatch = useDispatch();
 
 	const handleClickOutside = (e) => {

@@ -1,8 +1,11 @@
 'use client';
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addNewTab } from '../../utils/warehouseSlice';
 
 const NavigationHeader = ({sidebarState, setSidebarState}) => {
-
+    const warehouse = useSelector((state) => state.warehouse);
+    const dispatch = useDispatch();
     const navMenuButtonRef = React.useRef();
 
     React.useLayoutEffect(() => {
@@ -19,6 +22,22 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
             console.log("mouse leave event", event);
         }, false);
     })
+
+    const handleAddNewTab = (event) => {
+        event.preventDefault();
+        console.log("----------------- handleAddNewTab -----------------");
+        dispatch(addNewTab({
+            id: warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1,
+            title: `untitled - ${warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1}`,
+            isActive: false,
+            order: warehouse.length
+        }));
+    }
+
+    const handleActivateTab = (event, tabInfo) => {
+        event.preventDefault();
+        console.log("----------------- handleAddNewTab -----------------", tabInfo);
+    }
 
     return (
         <>
@@ -53,10 +72,23 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                             </a>
                         </li>
 
+                        <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll', width: "calc(100% - 250+'px')" }}>
+                        {
+                            warehouse.navigationTabs.map((item, index) => {
+                                return (
+                                        <button key={`react-nav-tabs-${index}`} className={'w-full btn-sm '} onClick={(e) => handleActivateTab(e, item)}>
+                                            { !(item.title) && <i className="fa-solid fa-file fa-1x text-secondary"></i> }
+                                            { item?.title && item.title }
+                                        </button>
+                                )
+                            })
+                        }
+                        </div>
+
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <button className="nav-link" onClick={(e) => handleAddNewTab(e)} title={'open new editor tab!'}>
                                 <i className="fa-solid fa-plus fa-1x text-secondary"></i>    
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>
