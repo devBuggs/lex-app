@@ -1,5 +1,10 @@
 [
     {
+        "id": 0,
+        "label": "Get Info",
+        "icon": "fa-solid fa-info"
+    },
+    {
         "id": 1,
         "label": "Delete",
         "icon": "fa-solid fa-trash"
