@@ -64,7 +64,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 		event.preventDefault();
 		console.log("----- context menu :: menuBtn :: onClick --------")
 		alert(`${ctxObj.label} ${menuObj.name}`);
-		dispatch(increment())
+		dispatch(increment({ "key": "value" }));
 	}
 
 	return (
@@ -75,7 +75,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 				!open
 					? null
 					: <div
-						className="context"
+						className="context px-auto bg-white"
 						ref={contextRef}
 						style={{ top, left }}
 					>
@@ -86,12 +86,12 @@ const ContextMenu = ({ buttons, menu, children }) => {
 									return <button 
 											className={'btn-sm bg-slate'}
 											key={`id-context-menu-btn-${button.label}`}
-											style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+											style={{ display: "flex", flexDirection: "row", gap: "0.2rem" }}
 											onClick={(e) => handleContextButtonClick(e, menu, button)} >
-											<span className={"flex-none w-14"}>
+											<span className={"flex-none px-2"}>
 												<i className={button.icon}></i>
 											</span>
-											<span className="flex-auto w-64">{button.label}</span>
+											<span className="flex-auto">{button.label}</span>
 										</button>
 								})
 							}
