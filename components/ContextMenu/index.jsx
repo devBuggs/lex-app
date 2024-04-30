@@ -1,4 +1,7 @@
+'use client';
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from '../../utils/warehouseSlice';
 
 const ContextMenu = ({ buttons, menu, children }) => {
 	const [open, setOpen] = useState(false);
@@ -7,6 +10,8 @@ const ContextMenu = ({ buttons, menu, children }) => {
 	
 	const divRef = React.useRef(null);
 	const contextRef = React.useRef(null);
+    const warehouseStore = useSelector((state) => state.warehouse.value);
+    const dispatch = useDispatch();
 
 	const handleClickOutside = (e) => {
 		if (!open) {
@@ -45,12 +50,20 @@ const ContextMenu = ({ buttons, menu, children }) => {
 		};
 	});
 
-	const handleRightClick = (e) => {
-		e.preventDefault();
+	const handleRightClick = (event) => {
+		event.preventDefault();
+		console.log("----- context menu :: opened --------")
 		setOpen(true);
-		setTop(window.scrollY + e.nativeEvent.clientY);
-		setLeft(e.nativeEvent.clientX);
-		console.log("top: ", top, ', left: ', left);
+		setTop(window.scrollY + event.nativeEvent.clientY);
+		setLeft(event.nativeEvent.clientX);
+		console.log("positionOfContextMenu :: top: ", top, ', left: ', left);
+	}
+
+	const handleContextButtonClick = (event, menuObj, ctxObj) => {
+		event.preventDefault();
+		console.log("----- context menu :: menuBtn :: onClick --------")
+		alert(`${ctxObj.label} ${menuObj.name}`);
+		dispatch(increment())
 	}
 
 	return (
@@ -65,18 +78,28 @@ const ContextMenu = ({ buttons, menu, children }) => {
 						ref={contextRef}
 						style={{ top, left }}
 					>
-						<ul style={{ listStyle: "none", paddingLeft: "10px" }} >
+						<div style={{ listStyle: "none", paddingLeft: "5px", display: "flex", flexDirection: "column", justifyContent: 'flex-start' }} >
 							{
 								buttons.length > 0 &&
 								buttons.map((button) => {
-									return <li key={`id-context-menu-btn-${button.label}`}>
-										<a href="#" onClick={() => alert(`${button.label} ${menu.name}`)}>
-										<i className={button.icon}></i> {button.label}
-										</a>
-									</li>
+									return <>
+										{/* <p key={`id-context-menu-btn-${button.label}`} style={{ display: "flex", flexDirection: "column" }}>
+											<a className='btn-sm' href="#" onClick={(e) => handleContextButtonClick(e, menu, button)}>
+												<i className={button.icon}></i>
+											</a>
+										</p> */}
+										<button 
+											style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+											onClick={(e) => handleContextButtonClick(e, menu, button)} >
+											<span className={'min-w-24'}>
+												<i className={button.icon}></i>
+											</span>
+											<span className="mx-2 max-w-24">{button.label}</span>
+										</button>
+									</>
 								})
 							}
-						</ul>
+						</div>
 					</div>
 			}
 		</div>
