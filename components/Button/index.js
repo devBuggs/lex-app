@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import ContextMenu from '../ContextMenu';
 import ContextMenuList from '../../config/contextMenu.json';
@@ -53,7 +54,7 @@ const index = ({ obj }) => {
                 </p>
                 
                 <ul className="collapse " id={`id-collapseChild-${obj.id}`}>
-                    { obj.child.length > 0 ? obj.child.map((item, index) => <li key={`id-child-obj-${index}`}>{item.name}</li>) : <p class="text-muted fw-bold">No pages found</p> }
+                    { obj.child.length > 0 ? obj.child.map((item, index) => <li key={`id-child-obj-${index}`}>{item.name}</li>) : <p className="text-muted fw-bold">No pages found</p> }
                 </ul>
             </div>
         </>
