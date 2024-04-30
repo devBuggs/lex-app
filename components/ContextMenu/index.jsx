@@ -19,6 +19,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 		}
 
 		const root = divRef.current;
+		console.log("==> root.contains :: ", root.contains)
 		const context = contextRef.current;
 		const isInRow = (!root.contains(e.target) || root.contains(e.target));
 		const isInContext = !context.contains(e.target);
@@ -78,25 +79,20 @@ const ContextMenu = ({ buttons, menu, children }) => {
 						ref={contextRef}
 						style={{ top, left }}
 					>
-						<div style={{ listStyle: "none", paddingLeft: "5px", display: "flex", flexDirection: "column", justifyContent: 'flex-start' }} >
+						<div style={{ display: "flex", flexDirection: "column", justifyContent: 'flex-start' }} >
 							{
 								buttons.length > 0 &&
 								buttons.map((button) => {
-									return <>
-										{/* <p key={`id-context-menu-btn-${button.label}`} style={{ display: "flex", flexDirection: "column" }}>
-											<a className='btn-sm' href="#" onClick={(e) => handleContextButtonClick(e, menu, button)}>
-												<i className={button.icon}></i>
-											</a>
-										</p> */}
-										<button 
+									return <button 
+											className={'btn-sm bg-slate'}
+											key={`id-context-menu-btn-${button.label}`}
 											style={{ display: "flex", flexDirection: "row", gap: "5px" }}
 											onClick={(e) => handleContextButtonClick(e, menu, button)} >
-											<span className={'min-w-24'}>
+											<span className={"flex-none w-14"}>
 												<i className={button.icon}></i>
 											</span>
-											<span className="mx-2 max-w-24">{button.label}</span>
+											<span className="flex-auto w-64">{button.label}</span>
 										</button>
-									</>
 								})
 							}
 						</div>
