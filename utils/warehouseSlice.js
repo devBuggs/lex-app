@@ -13,15 +13,15 @@ export const warehouseSlice = createSlice({
             // doesn't actually mutate the state because it uses the Immer library,
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
-            console.log("action dispatched :: ", action);
+            console.log("warehouse action dispatched :: ", action);
             // state.value += 1
         },
         decrement: (state, action) => {
-            console.log("action dispatched :: ", action);
+            console.log("warehouse action dispatched :: ", action);
             // state.value -= 1
         },
         incrementByAmount: (state, action) => {
-            console.log("action dispatched :: ", action);
+            console.log("warehouse action dispatched :: ", action);
             // state.value += action.payload
         },
     },
