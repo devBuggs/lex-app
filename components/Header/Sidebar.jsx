@@ -4,9 +4,9 @@ import Button from '../Button';
 const Sidebar = ({ options }) => {
 
     return (
-        <div className={ 'flex-1 bg-body-secondary' } style={{ width: 15+'%' }}>
+        <div className={ 'flex-1 bg-body-secondary' } style={{ width: 25+'%' }}>
             <br /><br /><br />
-            <span className={'text-secondary ms-3'}>Pages</span>
+            <span className={'text-secondary ms-3'}>Metadata</span>
             <div className="list-group">
                 {
                     options.map((elm, index) => <Button obj={elm} key={`id-child-obj-${index}`} />)
