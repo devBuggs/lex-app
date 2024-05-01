@@ -88,7 +88,7 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                             </a>
                         </li>
 
-                        <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', width: "calc(100vw - 40vw)", gap: '5px' }}>
+                        <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', width: "calc(100vw - 40vw)", gap: '5px', alignItems: 'center' }}>
                         {
                             warehouse.navigationTabs.map((item, index) => {
                                 return (
