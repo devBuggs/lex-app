@@ -2,26 +2,31 @@
     {
         "id": 1,
         "label": "Get Info",
-        "icon": "fa-solid fa-info"
+        "icon": "fa-solid fa-file",
+        "actionType": "getTabInfo"
     },
     {
         "id": 2,
         "label": "Rename tab",
-        "icon": "fa-solid fa-pen-to-square"
+        "icon": "fa-solid fa-pen-to-square",
+        "actionType": "renameTab"
     },
     {
         "id": 3,
         "label": "Add to favorites",
-        "icon": "fa-solid fa-star"
+        "icon": "fa-solid fa-star",
+        "actionType": "favouriteTab"
     },
     {
         "id": 4,
         "label": "Duplicate tab",
-        "icon": "fa-solid fa-clone"
+        "icon": "fa-solid fa-clone",
+        "actionType": "duplicateTab"
     },
     {
         "id": 5,
         "label": "Delete tab",
-        "icon": "fa-solid fa-trash"
+        "icon": "fa-solid fa-trash",
+        "actionType": "deleteTab"
     }
 ]
