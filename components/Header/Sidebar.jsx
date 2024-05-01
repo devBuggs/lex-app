@@ -4,7 +4,7 @@ import Button from '../Button';
 const Sidebar = ({ options }) => {
 
     return (
-        <div className={ 'flex-1 bg-body-secondary' } style={{ width: 25+'%' }}>
+        <div className={ 'flex-1 bg-body-secondary' } style={{ width: 20+'%' }}>
             <br /><br /><br />
             <span className={'text-secondary ms-3'}>Metadata</span>
             <div className="list-group">
