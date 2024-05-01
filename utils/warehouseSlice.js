@@ -33,11 +33,21 @@ export const warehouseSlice = createSlice({
                 });
                 state.navigationTabs = dataSet
             }
+        },
+        deleteTab: (state, action) => {
+            console.log("action dispatched * deleteTab :: ", action.payload);
+            let tempNavs = state.navigationTabs.filter(item => item.id !== action.payload.id)
+            if (tempNavs.length > 0) {
+                // state.navigationTabs.map((item) => {
+                //     console.log("check for id:: ", item)
+                // });
+                state.navigationTabs = tempNavs
+            }
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addNewTab, activateTab } = warehouseSlice.actions
+export const { addNewTab, activateTab, deleteTab } = warehouseSlice.actions
 
 export default warehouseSlice.reducer

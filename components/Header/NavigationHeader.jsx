@@ -85,6 +85,7 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                                     <>
                                         <ContextMenu
                                             key={`id-context-${index}`}
+                                            menu={item}
                                             buttons={EditorTabContextMenuList}>
                                             <button 
                                                 type="button" 

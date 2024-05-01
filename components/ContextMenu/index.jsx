@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { handleContextMenuBtnOnClick } from '../../utils/hooks';
 
 const ContextMenu = ({ buttons, menu, children }) => {
 	const [open, setOpen] = useState(false);
@@ -86,6 +87,7 @@ const ContextMenu = ({ buttons, menu, children }) => {
 											key={`id-context-menu-btn-${button.label}`}
 											style={{ display: "flex", flexDirection: "row", gap: "0.2rem" }}
 											onContextMenu={e => e.stopPropagation()}
+											onClick={(e) => handleContextMenuBtnOnClick(e, dispatch, menu, button)}
 											>
 											<span className={"flex-none px-2"}>
 												<i className={button.icon}></i>
