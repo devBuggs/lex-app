@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "label": "Get Info",
+        "icon": "fa-solid fa-info"
+    },
+    {
+        "id": 2,
+        "label": "Rename tab",
+        "icon": "fa-solid fa-pen-to-square"
+    },
+    {
+        "id": 3,
+        "label": "Add to favorites",
+        "icon": "fa-solid fa-star"
+    },
+    {
+        "id": 4,
+        "label": "Duplicate tab",
+        "icon": "fa-solid fa-clone"
+    },
+    {
+        "id": 5,
+        "label": "Delete tab",
+        "icon": "fa-solid fa-trash"
+    }
+]

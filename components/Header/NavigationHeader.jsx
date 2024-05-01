@@ -2,6 +2,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addNewTab, activateTab } from '../../utils/warehouseSlice';
+import ContextMenu from '../ContextMenu';
+import EditorTabContextMenuList from '../../config/editorTabContextMenu.json';
+
 
 const NavigationHeader = ({sidebarState, setSidebarState}) => {
     const warehouse = useSelector((state) => state.warehouse);
@@ -89,22 +92,29 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                         {
                             warehouse.navigationTabs.map((item, index) => {
                                 return (
-                                        <button 
-                                            type="button" 
-                                            className={`btn btn-outline-info ${ item.isActive ? 'btn-secondary' : 'btn-light' }`} 
-                                            style={{
-                                                "--bs-btn-padding-y": ".25rem",
-                                                "--bs-btn-padding-x": "2rem",
-                                                "--bs-btn-font-size": ".75rem",
-                                                "--bs-btn-border-radius": "20px",
-                                            }}
-                                            key={`react-nav-tabs-${index}`} 
-                                            onClick={(e) => handleActivateTab(e, item)}
-                                            // onContextMenu={handleRightClick}
-                                            >
-                                            { !(item.title) && <i className="fa-solid fa-file fa-1x text-secondary"></i> }
-                                            { item?.title && item.title }
-                                        </button>
+                                    <>
+                                        <ContextMenu
+                                            key={`id-context-${index}`}
+                                            // menu={item}
+                                            buttons={EditorTabContextMenuList}>
+                                            <button 
+                                                type="button" 
+                                                className={`btn btn-outline-info ${ item.isActive ? 'btn-secondary' : 'btn-light' }`} 
+                                                style={{
+                                                    "--bs-btn-padding-y": ".25rem",
+                                                    "--bs-btn-padding-x": "2rem",
+                                                    "--bs-btn-font-size": ".75rem",
+                                                    "--bs-btn-border-radius": "20px",
+                                                }}
+                                                key={`react-nav-tabs-${index}`} 
+                                                onClick={(e) => handleActivateTab(e, item)}
+                                                onContextMenu={handleRightClick}
+                                                >
+                                                { !(item.title) && <i className="fa-solid fa-file fa-1x text-secondary"></i> }
+                                                { item?.title && item.title }
+                                            </button>
+                                        </ContextMenu>
+                                    </>
                                 )
                             })
                         }
