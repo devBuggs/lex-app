@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '../../utils/warehouseSlice';
 
 const ContextMenu = ({ buttons, menu, children }) => {
 	const [open, setOpen] = useState(false);
@@ -64,7 +63,6 @@ const ContextMenu = ({ buttons, menu, children }) => {
 		event.preventDefault();
 		console.log("----- context menu :: menuBtn :: onClick --------")
 		alert(`${ctxObj.label} ${menuObj.name}`);
-		dispatch(increment({ "key": "value" }));
 	}
 
 	return (
@@ -87,7 +85,8 @@ const ContextMenu = ({ buttons, menu, children }) => {
 											className={'btn-sm bg-slate'}
 											key={`id-context-menu-btn-${button.label}`}
 											style={{ display: "flex", flexDirection: "row", gap: "0.2rem" }}
-											onClick={(e) => handleContextButtonClick(e, menu, button)} >
+											onContextMenu={e => e.stopPropagation()}
+											>
 											<span className={"flex-none px-2"}>
 												<i className={button.icon}></i>
 											</span>
@@ -102,15 +101,3 @@ const ContextMenu = ({ buttons, menu, children }) => {
 	);
 }
 export default ContextMenu
-
-const theme = {
-	context: {
-		width: 200 + 'px',
-		height: 'auto',
-		backgroundColor: '#ffffff',
-		display: 'block',
-		position: 'absolute',
-		border: '1px solid #ccc',
-		boxShadow: '2px 2px 2px #343434'
-	}
-}
