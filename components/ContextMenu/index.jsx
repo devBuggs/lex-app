@@ -60,12 +60,6 @@ const ContextMenu = ({ buttons, menu, children }) => {
 		console.log("positionOfContextMenu :: top: ", top, ', left: ', left);
 	}
 
-	const handleContextButtonClick = (event, menuObj, ctxObj) => {
-		event.preventDefault();
-		console.log("----- context menu :: menuBtn :: onClick --------")
-		alert(`${ctxObj.label} ${menuObj.name}`);
-	}
-
 	return (
 		<div onContextMenu={handleRightClick} ref={divRef}>
 			{children}
@@ -74,26 +68,26 @@ const ContextMenu = ({ buttons, menu, children }) => {
 				!open
 					? null
 					: <div
-						className="context px-auto bg-white"
+						className="context px-auto bg-light"
 						ref={contextRef}
 						style={{ top, left }}
 					>
-						<div style={{ display: "flex", flexDirection: "column", justifyContent: 'flex-start' }} >
+						<div class="list-group" style={{ display: "flex", flexDirection: "column", justifyContent: 'flex-start' }} >
 							{
 								buttons.length > 0 &&
 								buttons.map((button) => {
 									return <button 
-											className={'btn-sm bg-slate'}
-											key={`id-context-menu-btn-${button.label}`}
-											style={{ display: "flex", flexDirection: "row", gap: "0.2rem" }}
-											onContextMenu={e => e.stopPropagation()}
-											onClick={(e) => handleContextMenuBtnOnClick(e, dispatch, menu, button)}
-											>
-											<span className={"flex-none px-2"}>
-												<i className={button.icon}></i>
-											</span>
-											<span className="flex-auto">{button.label}</span>
-										</button>
+										className={'list-group-item list-group-item-action shadow-lg'}
+										key={`id-context-menu-btn-${button.label}`}
+										style={{ display: "flex", flexDirection: "row", gap: "0.2rem" }}
+										onContextMenu={e => e.stopPropagation()}
+										onClick={(e) => handleContextMenuBtnOnClick(e, dispatch, menu, button)}
+										>
+										<span className={"d-flex justify-content-start align-items-center "}>
+											<i className={button.icon}></i>
+											<span className="mx-2">{button.label}</span>
+										</span>
+									</button>
 								})
 							}
 						</div>
