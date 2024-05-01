@@ -45,16 +45,6 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
         }));
     }
 
-    /** right click menu action on Editor Tab */ // FIXME: TODO: check for contextMenu supports
-    const handleRightClick = (event) => {
-		event.preventDefault();
-		console.log("----- context menu :: opened --------")
-		// setOpen(true);
-		// setTop(window.scrollY + event.nativeEvent.clientY);
-		// setLeft(event.nativeEvent.clientX);
-		// console.log("positionOfContextMenu :: top: ", top, ', left: ', left);
-	}
-
     return (
         <>
             <div className="card text-center">
@@ -95,7 +85,6 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                                     <>
                                         <ContextMenu
                                             key={`id-context-${index}`}
-                                            // menu={item}
                                             buttons={EditorTabContextMenuList}>
                                             <button 
                                                 type="button" 
@@ -108,7 +97,6 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                                                 }}
                                                 key={`react-nav-tabs-${index}`} 
                                                 onClick={(e) => handleActivateTab(e, item)}
-                                                onContextMenu={handleRightClick}
                                                 >
                                                 { !(item.title) && <i className="fa-solid fa-file fa-1x text-secondary"></i> }
                                                 { item?.title && item.title }
