@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewTab } from '../../utils/warehouseSlice';
+import { addNewTab, activateTab } from '../../utils/warehouseSlice';
 
 const NavigationHeader = ({sidebarState, setSidebarState}) => {
     const warehouse = useSelector((state) => state.warehouse);
@@ -25,7 +25,7 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
 
     const handleAddNewTab = (event) => {
         event.preventDefault();
-        console.log("----------------- handleAddNewTab -----------------");
+        // console.log("----------------- handleAddNewTab -----------------");
         dispatch(addNewTab({
             id: warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1,
             title: `untitled - ${warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1}`,
@@ -36,8 +36,21 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
 
     const handleActivateTab = (event, tabInfo) => {
         event.preventDefault();
-        console.log("----------------- handleAddNewTab -----------------", tabInfo);
+        // console.log("----------------- handleAddNewTab -----------------", tabInfo);
+        dispatch(activateTab({
+            id: tabInfo.id
+        }));
     }
+
+    /** right click menu action on Editor Tab */ // FIXME: TODO: check for contextMenu supports
+    const handleRightClick = (event) => {
+		event.preventDefault();
+		console.log("----- context menu :: opened --------")
+		// setOpen(true);
+		// setTop(window.scrollY + event.nativeEvent.clientY);
+		// setLeft(event.nativeEvent.clientX);
+		// console.log("positionOfContextMenu :: top: ", top, ', left: ', left);
+	}
 
     return (
         <>
@@ -72,11 +85,23 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
                             </a>
                         </li>
 
-                        <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'scroll', width: "calc(100% - 250+'px')" }}>
+                        <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', width: "calc(100vw - 40vw)", gap: '5px' }}>
                         {
                             warehouse.navigationTabs.map((item, index) => {
                                 return (
-                                        <button key={`react-nav-tabs-${index}`} className={'w-full btn-sm '} onClick={(e) => handleActivateTab(e, item)}>
+                                        <button 
+                                            type="button" 
+                                            className={`btn btn-outline-info ${ item.isActive ? 'btn-secondary' : 'btn-light' }`} 
+                                            style={{
+                                                "--bs-btn-padding-y": ".25rem",
+                                                "--bs-btn-padding-x": "2rem",
+                                                "--bs-btn-font-size": ".75rem",
+                                                "--bs-btn-border-radius": "20px",
+                                            }}
+                                            key={`react-nav-tabs-${index}`} 
+                                            onClick={(e) => handleActivateTab(e, item)}
+                                            // onContextMenu={handleRightClick}
+                                            >
                                             { !(item.title) && <i className="fa-solid fa-file fa-1x text-secondary"></i> }
                                             { item?.title && item.title }
                                         </button>

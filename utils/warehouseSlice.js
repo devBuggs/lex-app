@@ -4,23 +4,8 @@ const initialState = {
     value: 0,
     navigationTabs: [{
         id: 0,
-        title: "New tab",
-        isActive: false,
-        order: 0,
-    },{
-        id: 0,
-        title: "New tab A",
-        isActive: false,
-        order: 0,
-    },{
-        id: 0,
-        title: "New tab B",
+        title: "Default",
         isActive: true,
-        order: 0,
-    },{
-        id: 0,
-        title: "New tab C",
-        isActive: false,
         order: 0,
     }]
 }
@@ -33,23 +18,20 @@ export const warehouseSlice = createSlice({
             console.log("action dispatched * addNewTab :: ", action.payload);
             state.navigationTabs = [...state.navigationTabs, action.payload];
         },
-        activateTab: async (state, action) => {
+        activateTab: (state, action) => {
             console.log("action dispatched * activateTab :: ", action.payload);
-            let tempNavs = state.navigationTabs.filter(item => item.id == action.payload.id)
-            if (tempNavs) {
+            let tempNavs = state.navigationTabs.filter(item => item.id === action.payload.id)
+            if (tempNavs.length > 0) {
                 const dataSet = state.navigationTabs.map((item) => {
                     if (item.isActive) {
-                        console.log("------ deactivating current active tab! tabId :: ", item.id);
                         item.isActive = false
                     }
-                    
-                    if (item.id === tempNavs.id) {
-                        console.log("------ activating tab clicked!! having tabId :: ", action.payload.id)
+                    if (item.id === tempNavs[0].id) {
                         item.isActive = true
                     }
-                    return item
+                    return {...item}
                 });
-                console.log("dataSet :: ", dataSet);
+                state.navigationTabs = dataSet
             }
         }
     },
