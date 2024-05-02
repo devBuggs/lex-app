@@ -6,8 +6,6 @@ import NavigationHeader from '../components/Header/NavigationHeader'
 import Editor from '../components/Editor'
 import React from 'react'
 import Sidebar from '../components/Header/Sidebar';
-import options from '../config/menuBtns.json'
-
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +23,7 @@ export default function Home() {
       </Head>
 
         <div class="d-flex flex-row mb-3" style={{ height: 100+'vh' }}>
-          { !sidebarState && <Sidebar options={options} />  }
+          { !sidebarState && <Sidebar />  }
           
           <div class="flex-grow-1 bg-white">
             <NavigationHeader sidebarState={sidebarState} setSidebarState={setSidebarState} />
