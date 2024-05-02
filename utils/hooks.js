@@ -1,4 +1,4 @@
-import { deleteTab } from '../utils/warehouseSlice';
+import { deleteTab, duplicateTab } from '../utils/warehouseSlice';
 
 const handleContextMenuBtnOnClick = (event, dispatch, menuData, buttonData) => {
     event.preventDefault();
@@ -7,9 +7,9 @@ const handleContextMenuBtnOnClick = (event, dispatch, menuData, buttonData) => {
     switch (buttonData.actionType) {
         case "deleteTab":
             console.log("-------> deleteTab action <-------")
-            dispatch(deleteTab({
-                id: menuData.id
-            }));
+            // dispatch(deleteTab({
+            //     id: menuData.id
+            // }));
             break;
         case "getTabInfo":
             console.log("-------> getTabInfo action <-------")
@@ -31,13 +31,13 @@ const handleContextMenuBtnOnClick = (event, dispatch, menuData, buttonData) => {
             break;
         case "duplicateTab":
             console.log("-------> duplicateTab action <-------")
-            // dispatch(deleteTab({
-            //     id: menuData.id
-            // }));
+            dispatch(duplicateTab({
+                id: menuData.id
+            }));
             break;
         default:
             console.log("-------> default action <-------")
-
+            break;
     }
     
 }

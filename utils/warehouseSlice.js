@@ -43,11 +43,18 @@ export const warehouseSlice = createSlice({
                 // });
                 state.navigationTabs = tempNavs
             }
+        }, 
+        duplicateTab: (state, action) => {
+            console.log("action dispatched * duplicateTab :: ", action.payload);
+            let tempNavs = state.navigationTabs.filter(item => item.id === action.payload.id)
+            if (tempNavs) {
+                state.navigationTabs.push({...tempNavs[0], "id": state.navigationTabs[state.navigationTabs.length - 1].id + 1});
+            }
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addNewTab, activateTab, deleteTab } = warehouseSlice.actions
+export const { addNewTab, activateTab, deleteTab, duplicateTab } = warehouseSlice.actions
 
 export default warehouseSlice.reducer
