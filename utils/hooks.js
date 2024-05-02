@@ -43,6 +43,11 @@ const handleContextMenuBtnOnClick = (event, dispatch, menuData, buttonData) => {
     
 }
 
+const handleLoadEditorState = (tabId) => {
+    console.log("==> handleLoadEditorState - ", tabId)
+}
+
 export {
-    handleContextMenuBtnOnClick
+    handleContextMenuBtnOnClick,
+    handleLoadEditorState
 }
