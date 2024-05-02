@@ -7,6 +7,7 @@ const initialState = {
         title: "Default",
         isActive: true,
         order: 0,
+        isFavourite: false,
     }]
 }
 
@@ -50,11 +51,24 @@ export const warehouseSlice = createSlice({
             if (tempNavs) {
                 state.navigationTabs.push({...tempNavs[0], "id": state.navigationTabs[state.navigationTabs.length - 1].id + 1});
             }
+        },
+        addToFavouriteTab: (state, action) => {
+            console.log("action dispatched * addToFavouriteTab :: ", action.payload);
+            let tempNavs = state.navigationTabs.filter(item => item.id === action.payload.id)
+            if (tempNavs.length > 0) {
+                const updatedTabs = state.navigationTabs.map((item) => {
+                    if (item.id === action.payload.id) {
+                        item.isFavourite = action.payload.isFav
+                    }
+                    return item;
+                });
+                state.navigationTabs = updatedTabs
+            }
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addNewTab, activateTab, deleteTab, duplicateTab } = warehouseSlice.actions
+export const { addNewTab, activateTab, deleteTab, duplicateTab, addToFavouriteTab } = warehouseSlice.actions
 
 export default warehouseSlice.reducer

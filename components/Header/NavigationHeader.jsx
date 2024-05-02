@@ -33,7 +33,8 @@ const NavigationHeader = ({sidebarState, setSidebarState}) => {
             id: warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1,
             title: `untitled - ${warehouse.navigationTabs[warehouse.navigationTabs.length -1].id + 1}`,
             isActive: false,
-            order: warehouse.length
+            order: warehouse.length,
+            isFavourite: false,
         }));
     }
 
