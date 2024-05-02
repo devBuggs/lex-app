@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import ContextMenuList from '../config/menuBtns.json';
 
 const initialState = {
     value: 0,
@@ -8,7 +9,9 @@ const initialState = {
         isActive: true,
         order: 0,
         isFavourite: false,
-    }]
+        editorState: {}
+    }],
+    sideBarMenu: ContextMenuList
 }
 
 export const warehouseSlice = createSlice({
@@ -30,7 +33,7 @@ export const warehouseSlice = createSlice({
                     if (item.id === tempNavs[0].id) {
                         item.isActive = true
                     }
-                    return {...item}
+                    return { ...item }
                 });
                 state.navigationTabs = dataSet
             }
@@ -44,12 +47,12 @@ export const warehouseSlice = createSlice({
                 // });
                 state.navigationTabs = tempNavs
             }
-        }, 
+        },
         duplicateTab: (state, action) => {
             console.log("action dispatched * duplicateTab :: ", action.payload);
             let tempNavs = state.navigationTabs.filter(item => item.id === action.payload.id)
             if (tempNavs) {
-                state.navigationTabs.push({...tempNavs[0], "id": state.navigationTabs[state.navigationTabs.length - 1].id + 1});
+                state.navigationTabs.push({ ...tempNavs[0], "id": state.navigationTabs[state.navigationTabs.length - 1].id + 1 });
             }
         },
         addToFavouriteTab: (state, action) => {
