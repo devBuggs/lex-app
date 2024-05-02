@@ -21,11 +21,14 @@ import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 
+// import { handleLoadEditorState } from "../../utils/hooks.js";
+
 function Placeholder() {
   return <div className="editor-placeholder">Hi, we would like to listen you. Here you go...</div>;
 }
 
 const editorConfig = {
+  namespace: 'default',
   theme: editorTheme,
   onError(error) {
     console.log("Editor error: ", error)
