@@ -10,7 +10,6 @@ import Sidebar from '../components/Header/Sidebar';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-
   const [sidebarState, setSidebarState] = React.useState(false)
 
   return (
@@ -22,14 +21,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <div class="d-flex flex-row mb-3" style={{ height: 100+'vh' }}>
-          { !sidebarState && <Sidebar />  }
-          
-          <div class="flex-grow-1 bg-white">
-            <NavigationHeader sidebarState={sidebarState} setSidebarState={setSidebarState} />
-            <Editor />
-          </div>
+      <div class="d-flex flex-row mb-3" style={{ height: 100 + 'vh' }}>
+        {!sidebarState && <Sidebar />}
+
+        <div class="flex-grow-1 bg-white">
+          <NavigationHeader sidebarState={sidebarState} setSidebarState={setSidebarState} />
+          <Editor />
         </div>
+      </div>
     </>
   )
 }
