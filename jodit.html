@@ -28,10 +28,12 @@
 
             const updateButtonLabel = (editor, fontFamily=null) => {
                 let fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
-                // let fontSizeButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
-                console.log("-- fontFamilyButton.innerHTML :: ", fontFamilyButton.innerHTML);
-                // console.log("-- fontSizeButton.innerHTML :: ", fontSizeButton.innerHTML);
-
+                
+                if (fontFamily != null) {
+                    console.log("font-family provided - ", fontFamily)
+                    fontFamilyButton = fontFamily;
+                    return
+                }
                 if (typeof editor === "string") {
                     let domString = editor;
                     const regex = /font-family:\s*([^;]+);/;
@@ -42,18 +44,26 @@
                         fontFamilyButton.innerHTML = match[1]
                     } else {
                         console.log("Font Family not found");
-                        fontFamilyButton.innerHTML = 'Default'
+                        // fontFamilyButton.innerHTML = 'Default'
                     }
-                } else {
-                    const currentStyle = editor.s.current();
-                    let irmsBtn = editor.currentPlace.options.buttons.filter(item => item?.name === "irmsFontFamily")
-                    console.log("=== currentStyle : ", currentStyle)
-                    const currentFontFamily = currentStyle ? fontFamily : 'Default';
-                    console.log("=== currentFontFamily : ", currentStyle)
-                    const buttonText = fontFamilies[currentFontFamily] || 'failed';
-                    if (fontFamilyButton) {
-                        if (fontFamilyButton.innerHTML) {
-                            fontFamilyButton.textContent = `${buttonText}`;
+                } 
+                if (typeof editor === 'object') {
+                    if (editor.selection !== null) {
+                        console.log("=== selectionApi Event : ", editor.selection.current())
+                    }
+
+                    if (editor?.s) {
+                        //textApply a style to selected text
+                        const currentStyle = editor.s.current();
+                        console.log("=== selected text - currentStyle : ", currentStyle)
+                        const currentFontFamily = currentStyle ? fontFamily : 'Default';
+                        console.log("=== currentFontFamily : ", currentStyle);
+
+                        const buttonText = fontFamilies[currentFontFamily] || 'failed';
+                        if (fontFamilyButton) {
+                            if (fontFamilyButton.innerHTML) {
+                                fontFamilyButton.textContent = `${buttonText}`;
+                            }
                         }
                     }
                 }
@@ -94,7 +104,7 @@
                             return form;
                         },
                         exec: (editor, current, self) => {
-                            updateButtonLabel(editor);
+                            // updateButtonLabel(editor);
                         }
                     },
                     {
@@ -136,17 +146,17 @@
                 ],
                 events: {
                     change: (editor) => {
-                        console.log("editor.container - onchange:: ", JSON.stringify(editor));
+                        console.log("editor.container - onchange:: ",typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
-                            updateButtonLabel(JSON.stringify(editor));
+                            updateButtonLabel(editor);
                         }
                     },
                     afterInit: (editor) => {
-                        console.log("editor.container - afterInit:: ", JSON.stringify(editor));
+                        console.log("editor.container - afterInit:: ",typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
-                            updateButtonLabel(JSON.stringify(editor));
+                            updateButtonLabel(editor);
                         }
                     }
                 }
