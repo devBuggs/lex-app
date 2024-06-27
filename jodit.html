@@ -33,11 +33,11 @@
                 if (value !== null && type !== null) {
                     if (type === 'fontFamily') {
                         console.log("font-family provided - ", value)
-                        fontFamilyButton.innerHTML = value;
+                        fontFamilyButton.textContent = value;
                         return
                     } else if (type === 'fontSize') {
                         console.log("font-size provided - ", value)
-                        fontSizeButton.innerHTML = value;
+                        fontSizeButton.textContent = value;
                         return
                     }
                 }
@@ -51,13 +51,13 @@
                             const match = domString.match(regex);
                             if (match) {
                                 console.log("--> Extracted font-family : ", match[1]);
-                                fontFamilyButton.innerHTML = match[1];
+                                fontFamilyButton.textContent = match[1];
                             } else {
                                 console.log("X - No font-family found");
                             }
                         } else if (type === 'fontSize') {
                             console.log("--> Extracted font-size : ", 'detecting');
-                            fontSizeButton.innerHTML = 'detecting';
+                            fontSizeButton.textContent = 'detecting';
                         }
                     }
                 } 
