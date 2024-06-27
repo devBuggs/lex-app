@@ -26,7 +26,7 @@
                 'Roboto Medium,Arial,sans-serif': 'Roboto'
             };
 
-            const updateButtonLabel = (editor) => {
+            const updateButtonLabel = (editor, fontFamily=null) => {
                 let fontSizeButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                 console.log("-- fontSizeButton.innerHTML :: ", fontSizeButton.innerHTML);
 
@@ -47,7 +47,7 @@
                     const currentStyle = editor.s.current();
                     let irmsBtn = editor.currentPlace.options.buttons.filter(item => item?.name === "irmsFontFamily")
                     console.log("=== currentStyle : ", currentStyle)
-                    const currentFontFamily = currentStyle ? currentStyle.fontFamily : 'Default';
+                    const currentFontFamily = currentStyle ? fontFamily : 'Default';
                     console.log("=== currentFontFamily : ", currentStyle)
                     const buttonText = fontFamilies[currentFontFamily] || 'failed';
                     if (fontSizeButton) {
@@ -86,14 +86,14 @@
                                     e.preventDefault();
                                     const fontFamily = e.target.getAttribute('data-value');
                                     editor.s.applyStyle({ fontFamily: fontFamily });
-                                    updateButtonLabel(editor, self.container);
+                                    updateButtonLabel(editor, fontFamily);
                                     close();
                                 });
                             });
                             return form;
                         },
                         exec: (editor, current, self) => {
-                            updateButtonLabel(editor, self.container);
+                            updateButtonLabel(editor);
                         }
                     },
                     {
