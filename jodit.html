@@ -16,13 +16,13 @@
         document.addEventListener('DOMContentLoaded', function () {
             const fontFamilies = {
                 '' : "Default",
-                'Geneva': 'Geneva',
+                'Geneva,sans-serif': 'Geneva',
                 'Helvetica,sans-serif': 'Helvetica',
                 'Arial,Helvetica,sans-serif': 'Arial',
                 'Georgia,serif': 'Georgia',
                 'Impact,Charcoal,sans-serif': 'Impact',
                 'Tahoma,Geneva,sans-serif': 'Tahoma',
-                "'Times New Roman',Times,serif": 'Times New Roman',
+                'Times New Roman,Times,serif': 'Times New Roman',
                 'Verdana,Geneva,sans-serif': 'Verdana',
                 'Roboto Medium,Arial,sans-serif': 'Roboto'
             };
@@ -62,18 +62,15 @@
                 } 
                 
                 if (typeof editor === 'object' && value === null) {
-                    if (editor.selection != null) {
-                        console.log("=== selectionApi Event : ", editor.selection.current())
-                    }
-
-                    if (editor?.s) {
-                        //textApply a style to selected text
+                    if (editor.selection !== null && editor?.s?.current) {
+                        console.log("=== selectionApi Event : ", editor.selection)
                         const currentStyle = editor.s.current();
+
                         console.log("=== selected text - currentStyle : ", currentStyle)
                         const currentFontFamily = currentStyle ? value : 'Default';
                         console.log("=== currentFontFamily : ", currentStyle);
 
-                        const buttonText = fontFamilies[currentFontFamily] || fontFamily || 'Default';
+                        const buttonText = fontFamilies[currentFontFamily] || value || 'Default';
                         if (fontFamilyButton) {
                             if (fontFamilyButton.innerHTML) {
                                 fontFamilyButton.textContent = `${buttonText}`;
