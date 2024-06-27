@@ -15,6 +15,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const fontFamilies = {
+                '' : "Default",
                 'Geneva': 'Geneva',
                 'Helvetica,sans-serif': 'Helvetica',
                 'Arial,Helvetica,sans-serif': 'Arial',
@@ -26,29 +27,31 @@
                 'Roboto Medium,Arial,sans-serif': 'Roboto'
             };
 
-            const updateButtonLabel = (editor, fontFamily=null) => {
+            const updateButtonLabel = (editor, value=null, type=null) => {
                 let fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
-                
-                if (fontFamily != null) {
-                    console.log("font-family provided - ", fontFamily)
-                    fontFamilyButton = fontFamily;
-                    return
+                let fontSizeButton = document.querySelector('span.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_irmsFontSize.jodit-toolbar-button_text-icons_true.jodit-toolbar-button_with-trigger_true.jodit-ui-group__irmsFontSize > button > span.jodit-toolbar-button__text');
+                if (value !== null && type !== null) {
+                    if (type === 'fontFamily') {
+                        console.log("font-family provided - ", value)
+                        fontFamilyButton.innerHTML = value;
+                        return
+                    } else if (type === 'fontSize') {
+                        console.log("font-size provided - ", value)
+                        fontSizeButton.innerHTML = value;
+                        return
+                    }
                 }
-                if (typeof editor === "string") {
+                if (typeof editor === "string" && value === null && type === null) {
                     let domString = editor;
                     const regex = /font-family:\s*([^;]+);/;
                     const match = domString.match(regex);
-                    // console.log("regex match == ", match)
                     if (match) {
                         console.log("Extracted Font Family :::", match[1]);
                         fontFamilyButton.innerHTML = match[1]
-                    } else {
-                        console.log("Font Family not found");
-                        // fontFamilyButton.innerHTML = 'Default'
                     }
                 } 
-                if (typeof editor === 'object') {
-                    if (editor.selection !== null) {
+                if (typeof editor === 'object' && value === null) {
+                    if (editor.selection != null) {
                         console.log("=== selectionApi Event : ", editor.selection.current())
                     }
 
@@ -56,10 +59,10 @@
                         //textApply a style to selected text
                         const currentStyle = editor.s.current();
                         console.log("=== selected text - currentStyle : ", currentStyle)
-                        const currentFontFamily = currentStyle ? fontFamily : 'Default';
+                        const currentFontFamily = currentStyle ? value : 'Default';
                         console.log("=== currentFontFamily : ", currentStyle);
 
-                        const buttonText = fontFamilies[currentFontFamily] || 'failed';
+                        const buttonText = fontFamilies[currentFontFamily] || fontFamily || 'Default';
                         if (fontFamilyButton) {
                             if (fontFamilyButton.innerHTML) {
                                 fontFamilyButton.textContent = `${buttonText}`;
@@ -96,15 +99,15 @@
                                 a.addEventListener('click', (e) => {
                                     e.preventDefault();
                                     const fontFamily = e.target.getAttribute('data-value');
+                                    updateButtonLabel(editor, fontFamily, 'fontFamily');
                                     editor.s.applyStyle({ fontFamily: fontFamily });
-                                    updateButtonLabel(editor, fontFamily);
                                     close();
                                 });
                             });
                             return form;
                         },
                         exec: (editor, current, self) => {
-                            // updateButtonLabel(editor);
+                            console.log("====== irmsfontFamily btn clicked :: ")
                         }
                     },
                     {
@@ -112,7 +115,6 @@
                         tooltip: 'Select Font Size',
                         popup: (editor, current, self, close) => {
                             const fontSizes = ['24px', '28px', '32px', '48px', '64px', '72px', '96px'];
-
                             const form = editor.create.fromHTML(
                                 `<ul style="list-style-type: none; padding-inline-start: 0px;">
                                     ${Object.entries(fontSizes).map(([index, label]) => `<li style="width:100%; margin: 10px 15px;">
@@ -133,6 +135,7 @@
                                     e.preventDefault();
                                     const fontSize = e.target.getAttribute('data-value');
                                     editor.s.applyStyle({ fontSize: fontSize });
+                                    updateButtonLabel(editor, fontSize, 'fontSize');
                                     close();
                                 });
                             });
