@@ -41,15 +41,26 @@
                         return
                     }
                 }
-                if (typeof editor === "string" && value === null && type === null) {
+                
+                if (typeof editor === "string" && value === null) {
                     let domString = editor;
-                    const regex = /font-family:\s*([^;]+);/;
-                    const match = domString.match(regex);
-                    if (match) {
-                        console.log("Extracted Font Family :::", match[1]);
-                        fontFamilyButton.innerHTML = match[1]
+                    if (domString) {
+                        if (type === 'fontFamily') {
+                            const regex = /font-family:\s*([^;]+);/;
+                            const match = domString.match(regex);
+                            if (match) {
+                                console.log("--> Extracted font-family : ", match[1]);
+                                fontFamilyButton.innerHTML = match[1];
+                            } else {
+                                console.log("X - No font-family found");
+                            }
+                        } else if (type === 'fontSize') {
+                            console.log("--> Extracted font-size : ", 'detecting');
+                            fontSizeButton.innerHTML = 'detecting';
+                        }
                     }
                 } 
+                
                 if (typeof editor === 'object' && value === null) {
                     if (editor.selection != null) {
                         console.log("=== selectionApi Event : ", editor.selection.current())
@@ -149,17 +160,17 @@
                 ],
                 events: {
                     change: (editor) => {
-                        console.log("editor.container - onchange:: ",typeof editor);
+                        console.log("editor.onchange:: ",typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
-                            updateButtonLabel(editor);
+                            updateButtonLabel(editor, null, null);
                         }
                     },
                     afterInit: (editor) => {
-                        console.log("editor.container - afterInit:: ",typeof editor);
+                        console.log("editor.afterInit:: ",typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
-                            updateButtonLabel(editor);
+                            updateButtonLabel(editor, null, null);
                         }
                     }
                 }
