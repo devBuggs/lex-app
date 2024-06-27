@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jodit Custom Font Size</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.6.1/build/jodit.min.css">
+</head>
+
+<body>
+    <textarea id="editor"></textarea>
+
+    <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.1/build/jodit.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fontFamilies = {
+                '': 'Default',
+                'Helvetica,sans-serif': 'Helvetica',
+                'Arial,Helvetica,sans-serif': 'Arial',
+                'Georgia,serif': 'Georgia',
+                'Impact,Charcoal,sans-serif': 'Impact',
+                'Tahoma,Geneva,sans-serif': 'Tahoma',
+                "'Times New Roman',Times,serif": 'Times New Roman',
+                'Verdana,Geneva,sans-serif': 'Verdana',
+                'Roboto Medium,Arial,sans-serif': 'Roboto'
+            };
+
+            const updateButtonLabel = (editor, button) => {
+                const currentStyle = editor.s.current();
+                const currentFontFamily = currentStyle ? currentStyle.fontFamily : '';
+                button.querySelector('.jodit_toolbar_btn-text').textContent = fontFamilies[currentFontFamily] || 'Default';
+            };
+
+            const editor = new Jodit('#editor', {
+                toolbarButtonSize: 'middle',
+                buttons: ['bold', 'italic', 'underline', '|',
+                    {
+                        name: 'irmsFontFamily',
+                        tooltip: 'Select Font Family',
+                        text: 'Default',
+                        popup: (editor, current, self, close) => {
+                            const form = editor.create.fromHTML(
+                                `<ul style="list-style-type: none; padding-inline-start: 0px;">
+                                    ${Object.entries(fontFamilies).map(([value, label]) => `<li style="width:100%; margin: 10px 15px;">
+                                        <a 
+                                            href="#" 
+                                            data-value="${value}" 
+                                            style="font-family:${value}"
+                                            onMouseOver="this.style.color='red'"
+                                            onMouseOut="this.style.color='blue'" 
+                                            >
+                                            ${label}
+                                        </a>
+                                    </li>`).join('')}
+                                </ul>`
+                            );
+                            form.querySelectorAll('a').forEach(a => {
+                                a.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    const fontFamily = e.target.getAttribute('data-value');
+                                    editor.s.applyStyle({ fontFamily: fontFamily });
+                                    updateButtonLabel(editor, self.container);
+                                    close();
+                                });
+                            });
+                            return form;
+                        },
+                        exec: (editor, current, self) => {
+                            updateButtonLabel(editor, self.container);
+                        }
+                    },
+                    {
+                        name: 'irmsFontSize',
+                        tooltip: 'Select Font Size',
+                        popup: (editor, current, self, close) => {
+                            const fontSizes = ['24px', '28px', '32px', '48px', '64px', '72px', '96px'];
+
+                            const form = editor.create.fromHTML(
+                                `<ul style="list-style-type: none; padding-inline-start: 0px;">
+                                    ${Object.entries(fontSizes).map(([index, label]) => `<li style="width:100%; margin: 10px 15px;">
+                                        <a 
+                                            href="#" 
+                                            data-value="${label}" 
+                                            onMouseOver="this.style.color='red'"
+                                            onMouseOut="this.style.color='blue'" 
+                                            >
+                                            ${label}
+                                        </a>
+                                    </li>`).join('')}
+                                </ul>`
+                            );
+
+                            form.querySelectorAll('a').forEach(a => {
+                                a.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    const fontSize = e.target.getAttribute('data-value');
+                                    editor.s.applyStyle({ fontSize: fontSize });
+                                    close();
+                                });
+                            });
+
+                            return form;
+                        },
+                        exec: (editor) => {
+                            console.log("====== irmsFontSize btn clicked :: ")
+                        }
+                    }
+                ],
+                events: {
+                    change: (editor) => {
+                        const button = editor.container.querySelector('.jodit-toolbar-button.jodit-toolbar-button_irmsFontFamily');
+                        if (button) {
+                            updateButtonLabel(editor, button);
+                        }
+                    },
+                    afterInit: (editor) => {
+                        const button = editor.container.querySelector('.jodit-toolbar-button.jodit-toolbar-button_irmsFontFamily');
+                        if (button) {
+                            updateButtonLabel(editor, button);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
