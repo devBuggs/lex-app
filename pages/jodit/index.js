@@ -14,18 +14,19 @@ const EditorPage = () => {
     const config = {
         readonly: false,
         toolbar: true,
-        extraButtons: ['fontSize', 'fontFamily'],
+        extraButtons: ['customFontSize', 'customFontFamily'],
         plugins: {
             customPlugin
-        }
+        },
     };
 
     return (
-        <div className='text-black'>
+        <div className='text-red'>
             <h1>Jodit Editor with Custom Plugin</h1>
             <JoditEditor
                 ref={editor}
                 config={config}
+                
             />
         </div>
     );
