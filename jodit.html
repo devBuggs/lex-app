@@ -44,6 +44,7 @@
                 
                 if (typeof editor === "string" && value === null) {
                     let domString = editor;
+                    console.log("==>> ", domString)
                     if (domString) {
                         if (type === 'fontFamily') {
                             const regex = /font-family:\s*([^;]+);/;
@@ -64,23 +65,23 @@
                 if (typeof editor === 'object' && value === null) {
                     if (editor.selection !== null && editor?.s?.current) {
                         console.log("=== selectionApi Event : ", editor.selection)
-                        const currentStyle = editor.s.current();
+                        const currentElement = editor.s.current();
 
-                        if (currentStyle) {
-                            console.log("--> selected text : ", currentStyle)
+                        if (currentElement) {
+                            console.log("--> current selected text : ", currentElement)
+                            let currentElementStyle = currentElement.getAttribute('style');
+                            console.log("currentElement.style :: ", currentElementStyle);
+                            const currentFontFamily = currentElementStyle ? "detecting" : 'Default';;
+
+                            const buttonText = fontFamilies[currentFontFamily] || value || 'Default';
+                            if (fontFamilyButton) {
+                                fontFamilyButton.textContent = `${buttonText}`;
+                            }
                         } else {
                             console.info("--> no selected text found! skipping fontFamily Updation. ")
                         }
-
-                        const currentFontFamily = currentStyle ? value : 'Default';
-                        console.log("=== currentFontFamily : ", currentStyle);
-
-                        const buttonText = fontFamilies[currentFontFamily] || value || 'Default';
-                        if (fontFamilyButton) {
-                            if (fontFamilyButton.innerHTML) {
-                                fontFamilyButton.textContent = `${buttonText}`;
-                            }
-                        }
+                    } else {
+                        console.log("=== Editor Event : ", editor)
                     }
                 }
             };
