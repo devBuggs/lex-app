@@ -27,22 +27,23 @@
             };
 
             const updateButtonLabel = (editor, fontFamily=null) => {
-                let fontSizeButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
-                console.log("-- fontSizeButton.innerHTML :: ", fontSizeButton.innerHTML);
+                let fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
+                // let fontSizeButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
+                console.log("-- fontFamilyButton.innerHTML :: ", fontFamilyButton.innerHTML);
+                // console.log("-- fontSizeButton.innerHTML :: ", fontSizeButton.innerHTML);
 
                 if (typeof editor === "string") {
                     let domString = editor;
                     const regex = /font-family:\s*([^;]+);/;
                     const match = domString.match(regex);
-                    console.log("regex match == ", match)
+                    // console.log("regex match == ", match)
                     if (match) {
                         console.log("Extracted Font Family :::", match[1]);
-                        fontSizeButton.innerHTML = match[1]
+                        fontFamilyButton.innerHTML = match[1]
                     } else {
                         console.log("Font Family not found");
-                        fontSizeButton.innerHTML = 'Default'
+                        fontFamilyButton.innerHTML = 'Default'
                     }
-
                 } else {
                     const currentStyle = editor.s.current();
                     let irmsBtn = editor.currentPlace.options.buttons.filter(item => item?.name === "irmsFontFamily")
@@ -50,9 +51,9 @@
                     const currentFontFamily = currentStyle ? fontFamily : 'Default';
                     console.log("=== currentFontFamily : ", currentStyle)
                     const buttonText = fontFamilies[currentFontFamily] || 'failed';
-                    if (fontSizeButton) {
-                        if (fontSizeButton.innerHTML) {
-                            fontSizeButton.textContent = `${buttonText}`;
+                    if (fontFamilyButton) {
+                        if (fontFamilyButton.innerHTML) {
+                            fontFamilyButton.textContent = `${buttonText}`;
                         }
                     }
                 }
