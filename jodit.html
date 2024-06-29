@@ -44,7 +44,6 @@
                 
                 if (typeof editor === "string" && value === null) {
                     let domString = editor;
-                    console.log("==>> ", domString)
                     if (domString) {
                         if (type === 'fontFamily') {
                             const regex = /font-family:\s*([^;]+);/;
@@ -163,18 +162,26 @@
                 ],
                 events: {
                     change: (editor) => {
-                        console.log("Event.onchange : ", typeof editor);
+                        // console.log("Event.onchange : ", typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
                             updateButtonLabel(editor, null, null);
                         }
                     },
                     afterInit: (editor) => {
-                        console.log("Event.afterInit : ", typeof editor);
+                        // console.log("Event.afterInit : ", typeof editor);
                         const fontFamilyButton = document.querySelector('.jodit-toolbar-button__icon:empty+.jodit-toolbar-button__text:not(:empty)');
                         if (fontFamilyButton) {
                             updateButtonLabel(editor, null, null);
                         }
+                    },
+                    click: (editor) => {
+                        console.log("Event.click : ", typeof editor);
+                        console.log("instance :: ", editor )
+                    },
+                    keydown: (editor) => {
+                        // console.log("Event.keydown : ", typeof editor);
+                        // console.log("instance :: ", editor?.innerHTML);
                     }
                 }
             });
