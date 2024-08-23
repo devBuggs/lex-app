@@ -19,7 +19,17 @@ export default function Home() {
       <div class="d-flex flex-row mb-3" style={{ height: 100 + 'vh' }}>
 
         <div class="flex-grow-1 bg-dark text-center">
-          <h2>devBuggs's migrator</h2>
+          <h2>database migrator v2</h2>
+          <div className='my-5'>
+            <p className='lead'>
+              # start migration
+              {/* button */}
+              <br></br>
+              <button className='btn btn-success' onClick={() => console.log('start migration')}>
+                Start Migration
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </>
